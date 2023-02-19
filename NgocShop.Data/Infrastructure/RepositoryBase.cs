@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NgocShop.Data.Infrastructure
 {
-    public abstract class RepositoryBase<T> where T : class
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         #region Properties
         private NgocShopDbContext dataContext;
@@ -135,6 +135,11 @@ namespace NgocShop.Data.Infrastructure
         public bool CheckContains(Expression<Func<T, bool>> predicate)
         {
             return dataContext.Set<T>().Count<T>(predicate) > 0;
+        }
+
+        public T Delete(int id)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
