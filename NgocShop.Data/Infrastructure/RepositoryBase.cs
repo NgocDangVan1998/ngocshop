@@ -137,9 +137,10 @@ namespace NgocShop.Data.Infrastructure
             return dataContext.Set<T>().Count<T>(predicate) > 0;
         }
 
-        public T Delete(int id)
+        public virtual void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = dbSet.Find(id);
+            dbSet.Remove(entity);
         }
         #endregion
     }
