@@ -1,0 +1,19 @@
+﻿using NgocShop.Data.Infrastructure;
+using NgocShop.Model.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NgocShop.Data.Repositories
+{
+    public interface IFooterRepository
+    {
+
+    }
+    public class FooterRepository : RepositoryBase<Footer>,IFooterRepository
+    {
+        public FooterRepository(IDbFactory dbFactory) : base(dbFactory) { }
+    }
+}
