@@ -11,12 +11,13 @@ namespace NgocShop.Service
 {
     public interface IPostCategoryService
     {
-        void Add(PostCategory postCategory);
+        PostCategory Add(PostCategory postCategory);
         void Update(PostCategory postCategory);
         void Delete(int id);
         IEnumerable<PostCategory> GetAll();
         IEnumerable<PostCategory> GetAllByParentId(int parentId);
         PostCategory GetById(int id);
+        void Save();
     }
     public class PostCategoryService : IPostCategoryService
     {
@@ -28,9 +29,9 @@ namespace NgocShop.Service
             _unitOfWork = unitOfWork;
         }
 
-        public void Add(PostCategory postCategory)
+        public PostCategory Add(PostCategory postCategory)
         {
-            _postCategoryRepository.Add(postCategory);
+            return _postCategoryRepository.Add(postCategory);
         }
 
         public void Delete(int id)
@@ -56,6 +57,11 @@ namespace NgocShop.Service
         public void Update(PostCategory postCategory)
         {
             _postCategoryRepository.Update(postCategory);
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
         }
     }
 }

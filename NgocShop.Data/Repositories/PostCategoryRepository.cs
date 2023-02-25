@@ -10,10 +10,15 @@ namespace NgocShop.Data.Repositories
 {
     public interface IPostCategoryRepository : IRepository<PostCategory>
     {
-
+        PostCategory Add(PostCategory entity);
     }
     public class PostCategoryRepository : RepositoryBase<PostCategory>, IPostCategoryRepository
     {
         public PostCategoryRepository(IDbFactory dbFactory) : base(dbFactory) { }
+
+        public virtual PostCategory Add(PostCategory entity)
+        {
+            return DbContext.PostCategories.Add(entity);
+        }
     }
 }
