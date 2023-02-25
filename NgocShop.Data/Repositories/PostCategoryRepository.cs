@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NgocShop.Data.Repositories
 {
-    public interface IPostCategoryRepository
+    public interface IPostCategoryRepository : IRepository<PostCategory>
     {
 
     }

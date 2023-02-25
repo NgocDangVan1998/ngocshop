@@ -16,9 +16,10 @@ namespace NgocShop.Service
         void Update(Post post);
         void Delete(int id);
         IEnumerable<Post> GetAll();
-        IEnumerable<Post> GetAllPaging(string tag,int page, int pageSize,out int totalRow);
+        IEnumerable<Post> GetAllPaging(int page, int pageSize,out int totalRow);
+        IEnumerable<Post> GetAllByCategoryPaging(int CategoryId,int page, int pageSize, out int totalRow);
         Post GetById(int id);
-        IEnumerable<Post> GetAllByTagPaging(int page, int pageSize, out int totalRow);
+        IEnumerable<Post> GetAllByTagPaging(string tag, int page, int pageSize, out int totalRow);
         void SaveChanges();
     }
     public class PostService : IPostService
@@ -48,9 +49,14 @@ namespace NgocShop.Service
             } );
         }
 
+        public IEnumerable<Post> GetAllByCategoryPaging(int CategoryId, int page, int pageSize, out int totalRow)
+        {
+            return _postRepository.GetMultiPaging(x=>x.Status == true && x.CategoryID == CategoryId, out totalRow,page,pageSize,new string[] {"PostCategory"});
+        }
+
         public IEnumerable<Post> GetAllByTagPaging(string tag,int page, int pageSize, out int totalRow)
         {
-            return _postRepository.GetMultiPaging(x => x.Status,out totalRow,page,pageSize);
+            return _postRepository.GetAllByTag(tag,page,pageSize,out totalRow);
         }
 
         public IEnumerable<Post> GetAllByTagPaging(int page, int pageSize, out int totalRow)
