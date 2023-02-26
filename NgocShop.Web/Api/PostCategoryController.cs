@@ -1,6 +1,8 @@
-﻿using NgocShop.Model.Models;
+﻿using AutoMapper;
+using NgocShop.Model.Models;
 using NgocShop.Service;
 using NgocShop.Web.Infrastructure.Core;
+using NgocShop.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using NgocShop.Web.Infrastructure.Extensions;
 
 namespace NgocShop.Web.Api
 {
@@ -26,12 +29,15 @@ namespace NgocShop.Web.Api
             return createHttpResponse(request, () =>
             {
                 var listCategory = _postCategoryService.GetAll();
-                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listCategory);            
+
+                var listCategoryVm = Mapper.Map<List<PostCategoryViewModel>>(listCategory);
+                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listCategoryVm);            
                 return response;
             });
         }
 
-        public HttpResponseMessage Post(HttpRequestMessage request,PostCategory postCategory)
+        [Route("add")]
+        public HttpResponseMessage Post(HttpRequestMessage request,PostCategoryViewModel postCategoryVm)
         {
             return createHttpResponse(request, () =>
             {
@@ -42,7 +48,9 @@ namespace NgocShop.Web.Api
                 }
                 else
                 {
-                    var category = _postCategoryService.Add(postCategory);
+                    PostCategory newPostCategory = new PostCategory();
+                    newPostCategory.UpdatePostCategory(postCategoryVm);
+                    var category = _postCategoryService.Add(newPostCategory);
                     _postCategoryService.Save();
 
                     response = request.CreateResponse(HttpStatusCode.Created, category);
@@ -50,8 +58,8 @@ namespace NgocShop.Web.Api
                 return response;
             });
         }
-
-        public HttpResponseMessage Put(HttpRequestMessage request, PostCategory postCategory)
+        [Route("update")]
+        public HttpResponseMessage Put(HttpRequestMessage request, PostCategoryViewModel postCategoryVm)
         {
             return createHttpResponse(request, () =>
             {
@@ -62,7 +70,9 @@ namespace NgocShop.Web.Api
                 }
                 else
                 {
-                    _postCategoryService.Update(postCategory);
+                    var postCatedoryDb = _postCategoryService.GetById(postCategoryVm.ID);
+                    postCatedoryDb.UpdatePostCategory(postCategoryVm);
+                    _postCategoryService.Update(postCatedoryDb);
                     _postCategoryService.Save();
 
                     response = request.CreateResponse(HttpStatusCode.OK);
