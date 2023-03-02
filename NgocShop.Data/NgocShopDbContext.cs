@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using NgocShop.Model.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace NgocShop.Data
 {
-    public class NgocShopDbContext : DbContext
+    public class NgocShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public NgocShopDbContext() : base("NgocShopConnection") 
         {
@@ -34,8 +35,14 @@ namespace NgocShop.Data
         public DbSet<VisitorStatistic> VisitorStatistics { get; set; }
         public DbSet<Error> Errors { get; set; }
 
+        public static NgocShopDbContext Create()
+        {
+            return new NgocShopDbContext();
+        }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
+            builder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            builder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
         }
     }
 }
