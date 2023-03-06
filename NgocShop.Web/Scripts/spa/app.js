@@ -4,7 +4,8 @@ var myApp = angular.module('myModule', []);
 
 //Đưa controller vào Module
 myApp.controller("schoolController", schoolController);
-myApp.service('Validator', Validator);
+myApp.directive("ngocShopDirective", ngocShopDirective);
+myApp.service('validatorService', validatorService);
 
 schoolController.$inject = ['$scope','Validator']
 
@@ -15,7 +16,7 @@ function schoolController($scope, Validator) {
     $scope.num = 1;
 }
 
-function Validator($window) {
+function validatorService($window) {
     return {
         checkNunber: checkNunber
     }
@@ -25,5 +26,12 @@ function Validator($window) {
         } else {
             return 'This is odd';
         }
+    }
+}
+
+function ngocShopDirective() {
+    return {
+        restrict: "A",
+        templateUrl: "/Scripts/spa/ngocShopDirective.html"
     }
 }
