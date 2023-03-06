@@ -5,15 +5,18 @@
 
 <!DOCTYPE html>
 
-<html ng-app>
+<html ng-app="myModule">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <script src="~/Scripts/plugins/angular.js"></script>
+    <script src="~/Scripts/spa/app.js"></script>
 </head>
 <body>
-    <div> 
-        10 + 20 = {{10+20}}
+    <div ng-controller="schoolController">
+        <input type="number" ng-model="num" /> Value of TextBox : {{num}}
+        <button ng-click="checkNumber()">Click me</button>
+        {{message}}
     </div>
 </body>
 </html>
