@@ -15,6 +15,7 @@ namespace NgocShop.Web.Mapping
             Mapper.CreateMap<Post, PostViewModel>();
             Mapper.CreateMap<PostCategory, PostCategoryViewModel>();
             Mapper.CreateMap<Tag, TagViewModel>();
+            Mapper.CreateMap<ProductCategory, ProductCategoryViewModel>();
         }
     }
 }

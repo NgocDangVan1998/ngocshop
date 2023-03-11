@@ -1,7 +1,11 @@
 ﻿/// <reference path="../assets/admin/libs/angular.js" />
 
 (function () {
-    angular.module('ngocshop', ['ngocshop.product', 'ngocshop.common']).config(config);
+    angular.module('ngocshop',
+        ['ngocshop.product',
+        'ngocShop.product_categories',
+        'ngocshop.common']
+    ).config(config);
 
     config.$inject = ['$stateProvider', '$urlRouterProvider']
 
