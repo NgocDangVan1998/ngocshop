@@ -25,12 +25,13 @@ namespace NgocShop.Web.Api
         }
 
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, int page, int pageSize)
+        public HttpResponseMessage GetAll(HttpRequestMessage request,string keyword, int page, int pageSize)
         {
             return createHttpResponse(request, () =>
             {
                 int totalSize = 0;
-                var listProductCategory = _productCategoryService.GetAll();
+                var listProductCategory = _productCategoryService.GetAll(keyword);
+
                 var totalRow = listProductCategory.Count();
 
                 var query = listProductCategory.OrderByDescending(x => x.CreatedDate).Skip(page * pageSize).Take(pageSize);
