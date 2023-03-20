@@ -21,6 +21,10 @@
     {
       "library": "fastclick@1.0.6",
       "destination": "Assets/admin/libs/"
+    },
+    {
+      "library": "toastr.js@2.1.2",
+      "destination": "Assets/admin/libs/"
     }
   ]
 }
